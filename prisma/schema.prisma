@@ -85,7 +85,6 @@ model Product {
   store   Store @relation("StoreToProduct", fields: [storeId], references: [id])
   categoryId String
   category Category @relation("CategoryToProduct",fields: [categoryId], references: [id])
-  orderItems OrderItem[]
   name    String
   price   Decimal
   isFeatured Boolean @default(false)
@@ -95,6 +94,7 @@ model Product {
   colorId String
   color Color @relation(fields: [colorId], references: [id])
   images Image[] 
+  orderItems OrderItem[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -132,7 +132,7 @@ model Order {
 model OrderItem {
   id      String @id @default(uuid())
   orderId String
-  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order   Order @relation(fields: [orderId], references: [id])
   productId String
   product Product @relation(fields: [productId], references: [id])
   createdAt DateTime @default(now())
